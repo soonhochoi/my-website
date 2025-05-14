@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>소개</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>파일 업로드 데모</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input[type="file"] {
+      margin-top: 10px;
+    }
+    #output {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background: #f4f4f4;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">홈111</a> |
-    <a href="about.html">소개</a> |
-    <a href="gallery.html">갤러리</a> |
-    <a href="contact.html">연락</a>
-  </nav>
-  <main>
-    <h1>나에 대해</h1>
-    <p>저는 웹 개발을 배우고 있는 학생입니다.... 코딩을 재미있게 공부하고 있어요!</p>
-  </main>
+
+  <h1>📁 파일 업로드 예제</h1>
+
+  <input type="file" id="fileInput" />
+  <div id="output">선택한 파일 내용이 여기에 표시됩니다.</div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const output = document.getElementById('output');
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        output.textContent = e.target.result;
+      };
+      reader.onerror = function() {
+        output.textContent = "파일을 읽는 중 오류 발생!";
+      };
+
+      reader.readAsText(file);
+    });
+  </script>
+
 </body>
 </html>
